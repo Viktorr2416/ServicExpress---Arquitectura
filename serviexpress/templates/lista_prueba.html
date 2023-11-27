@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titulo</title>
+</head>
+<body>
+    <h1> Lista </h1>
+
+    <form action="{% url 'nueva_prueba'  %}" method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="Titulo" placeholder="Escribe el titulo">
+
+        <textarea name="Descripcion" rows="3" placeholder="Escribe descripcion"></textarea>
+
+        <button> Guardar</button>
+    </form>
+
+    {% for prueba in listar %}
+        <div>
+            {{prueba.titulo}}
+            {{prueba.descripcion}}
+            <form action="{% url 'eliminar_prueba' prueba.id %}" method="POST">
+                {% csrf_token %}
+                <button> Eliminar </button>
+            </form>
+        </div>
+    {% empty %}
+        <h1>
+            No hay pruebas disponibles
+        </h1>
+    {% endfor %} 
+
+</body>
+</html>
+
+
+
+
+
+
