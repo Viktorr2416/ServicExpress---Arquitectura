@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import lista_prueba, guardar_prueba, eliminar_prueba
+from . import views
 
 urlpatterns = [
-    path('', lista_prueba),
-    path('nueva_prueba/', guardar_prueba, name='nueva_prueba'),
-    path('eliminar_prueba/<int:prueba_id>/', eliminar_prueba, name='eliminar_prueba')
+    path('home/',views.homepage,name="home"),
+    path('registro/',views.registroCliente, name='registro'),
+    path('registrar/',views.registrar_cliente, name='registrar'),
+    path('login/', views.loginCliente, name='login'),
+    path('logeo/', views.login_cliente, name='logeo_cliente')
 ]

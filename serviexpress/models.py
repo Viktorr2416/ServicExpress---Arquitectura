@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 # Create your models here.
 class prueba(models.Model):
@@ -8,7 +9,7 @@ class prueba(models.Model):
 # Datos de Cliente
 class Cliente(models.Model):
     id = models.AutoField(primary_key=True)
-    correo = models.EmailField(max_length=50)
+    username = models.EmailField(max_length=50, unique=True)
     password = models.CharField(max_length=20)
     rut = models.IntegerField()
     nombre = models.CharField(max_length=20)
@@ -18,7 +19,7 @@ class Cliente(models.Model):
 # Datos de Reserva Hora
 class ReservaHora(models.Model):
     id = models.AutoField(primary_key=True)
-    Cliente = models.ForeignKey(Cliente)
+    Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     horafecha= models.DateTimeField()
     servicio = models.CharField(max_length=50)
 
@@ -32,7 +33,7 @@ class Proveedor(models.Model):
 # Datos de Factura
 class Factura(models.Model):
     id = models.AutoField(primary_key=True)
-    Cliente = models.ForeignKey(Cliente)
+    Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     fecha = models.DateTimeField()
     detalle = models.CharField(max_length=150)
     totalPagar = models.IntegerField()
@@ -50,7 +51,7 @@ class Empleado(models.Model):
 # Datos de Servicio 
 class Servicio(models.Model):
     id = models.AutoField(primary_key=True)
-    Empleado = models.ForeignKey(Empleado)
+    Empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=20)
     descripcion = models.CharField(max_length=100)
     precio = models.IntegerField()
@@ -65,15 +66,15 @@ class Producto(models.Model):
 # Datos Orden de Pedido
 class OrdenPedido(models.Model):
     id = models.AutoField(primary_key=True)
-    proveedor = models.ForeignKey(Proveedor)
-    empleado = models.ForeignKey(Empleado)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
     fecha_solicitud = models.DateTimeField()
     productos = models.ManyToManyField(Producto, through='DetalleOrdenPedido')
 
 # Datos DetalleOrdenPedido
 class DetalleOrdenPedido(models.Model):
-    orden_pedido = models.ForeignKey(OrdenPedido)
-    producto = models.ForeignKey(Producto)
+    orden_pedido = models.ForeignKey(OrdenPedido, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     precio_unitario = models.IntegerField()
     subtotal = models.IntegerField()
@@ -81,7 +82,7 @@ class DetalleOrdenPedido(models.Model):
 # Datos Recepcion de Producto
 class RecepcionProducto(models.Model):
     id = models.AutoField(primary_key=True)
-    orden_pedido = models.ForeignKey(OrdenPedido)
-    producto = models.ForeignKey(Producto)
+    orden_pedido = models.ForeignKey(OrdenPedido, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     fechaRecepcion = models.DateTimeField()
     
