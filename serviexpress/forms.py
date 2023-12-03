@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cliente
+from .models import Cliente, ReservaHora
 from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -17,3 +17,10 @@ class loginForm(AuthenticationForm):
         model = Cliente
         fields = ['username','password']
     
+class reservaHoraForm(ModelForm):
+    class Meta:
+        model = ReservaHora
+        fields = ['horafecha','servicio']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
