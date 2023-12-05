@@ -7,6 +7,17 @@
 </head>
 <body>
     <h1>Hola cliente. Gracias por preferirnos.</h1>
-    <h2>asd</h2>
+    <menu>
+        <li>
+            <a href="{% url 'listar_reserva' %}">
+                Mis Reservas
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'reserva' %}">
+                Registrar Reserva
+            </a>
+        </li>
+    </menu>
 </body>
 </html>

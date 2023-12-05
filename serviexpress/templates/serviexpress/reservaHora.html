@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+</head>
+<body>
+
+    <h2>Registro</h2>
+    <form action="{% url 'reserva' %}" method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <h1>Reserva Hora</h1>
+            <p>Por favor rellene el formulario para reservar exitosamente</p>
+            <hr>
+
+            <label for="hora"><b>Hora</b></label>
+            <input type="time" placeholder="Ingrese la hora" name="hora" id="hora" required>
+
+            <label for="fecha"><b>Fecha</b></label>
+            <input type="date" placeholder="Ingrese la fecha" name="fecha" id="fecha" required>
+
+            <label for="servicio"><b>Servicio</b></label>
+            <input type="text" placeholder="Ingrese el servicio" name="servicio" id="servicio" required>
+
+            <button type="submit" class="registro" >Confirmar</button>
+        </div>
+    </form>
+
+</body>
+</html>

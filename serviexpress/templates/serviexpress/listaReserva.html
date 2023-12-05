@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Reserva Hora</title>
+</head>
+<body>
+    
+    <h1>Tus Reservas</h1>
+    {% if reservas %}
+        <table border="2">
+            <thead>
+                <tr>
+                    <th>Hora de reserva</th>
+                    <th>Fecha de reserva</th>
+                    <th>Servicio registrado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserva in reservas %}
+                    <tr>
+                        <td>{{ reserva.hora }}</td>
+                        <td>{{ reserva.fecha|date:"d/m/Y" }}</td>
+                        <td>{{ reserva.servicio }}</td>
+                        <!-- Agrega más celdas según tus necesidades -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay reservas registradas.</p>
+    {% endif %}
+
+    <table>
+        <tr>
+        <td>Curso</td>
+        <td>Nivel</td>
+        <td>Plataforma</td>
+        </tr>
+        <tr>
+        <td>HTML</td>
+        <td>Principiante</td>
+        <td>Aprender desde Cero</td>
+        </tr>
+        <tr>
+        <td>CSS</td>
+        <td>Avanzado</td>
+        <td>Aprender desde Cero</td>
+        </tr>
+        </table>
+</body>
+</html>

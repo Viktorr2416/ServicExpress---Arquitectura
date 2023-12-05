@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
-from .models import prueba
+from .models import Cliente, Empleado, ReservaHora
 from .forms import clienteForm, loginForm, reservaHoraForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 # Acesso a las paginas
 
+@login_required
 def homepage(request):
     context={}
     return render(request, 'serviexpress/home.html', context)
@@ -24,6 +26,7 @@ def menu(request):
     context={}
     return render(request, 'serviexpress/menu.html', context)
 
+@login_required
 def homeE(request):
     context={}
     return render(request, 'serviexpress/homeE.html', context)
@@ -40,44 +43,61 @@ def registrar_cliente(request):
         if form.is_valid():
             print("Formulario válido")
             form.save()
+            user = User.objects.create_user(
+                    request.POST["username"], password=request.POST["password"])
+            user.save()
             print("Cliente guardado")
-            return redirect('login')
+            print("Usuario guardado")
+            return redirect('login_cliente')
         else:
             print("Formulario no válido. Errores:", form.errors)
     else:
         form = clienteForm
         
     return render(request, 'serviexpress/registro.html',{'form':form})
-            
-
-#Login de empleados
-def login_cliente(request):
     
-    print(request.POST)
+#Registro de cliente
+def login_cliente(request):
     if request.method == 'POST':
-        form = loginForm(request, request.POST)
+        form = loginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            
-            # Verificar las credenciales del usuario
-            print("Correo:", username)
-            print("password", password)
-            user = authenticate(
-                request, username=request.POST['username'], password=request.POST['password'])
-            
+
+            print(username,password)
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 messages.success(request, '¡Inicio de sesión exitoso!')
-                return redirect('home')
+                try:
+                    # Intentar buscar en Cliente
+                    cliente = Cliente.objects.get(username=username)
+                    # Redirigir a una página específica para clientes
+                    return redirect('home')  # Cambia 'ruta_para_cliente' por la URL o nombre de ruta real
+                except Cliente.DoesNotExist:
+                    # Si no se encuentra en Cliente, buscar en Empleado
+                    try:
+                        empleado = Empleado.objects.get(correo=username)  # Asumiendo que 'correo' es el campo de identificación
+                        # Redirigir a una página específica para empleados
+                        return redirect('empleado')  # Cambia 'ruta_para_empleado' por la URL o nombre de ruta real
+                    except Empleado.DoesNotExist:
+                        # Si no se encuentra en ninguno de los dos
+                        messages.error(request, 'Usuario no encontrado en Clientes o Empleados.')
+                
             else:
-                messages.error(request, 'ERROR FASE 2.')
+                print(user)
+                messages.error(request, 'ERROR FASE 2: Credenciales inválidas.')
         else:
-            messages.error(request, 'ERROR FASE 1.')
+            messages.error(request, 'ERROR FASE 1: Formulario no válido.')
 
-    return redirect('login')
+    else:
+        form = loginForm()
+
+    return render(request, 'serviexpress/login.html', {'form': form})
+
 
 #Registro Reserva de hora
+@login_required
 def reservaHora(request):
     if request.method == "POST":
         print(request.POST)
@@ -92,4 +112,10 @@ def reservaHora(request):
     else:
         form = reservaHoraForm
         
-    return render(request, 'home', {'form':form})
+    return render(request, 'serviexpress/reservaHora.html', {'form':form})
+
+#Listar Reservas de hora
+def list_reservas(request):
+    reservas = ReservaHora.objects.all()
+    print(reservas)
+    return render(request, 'serviexpress/listaReserva.html', {'reservas': reservas})

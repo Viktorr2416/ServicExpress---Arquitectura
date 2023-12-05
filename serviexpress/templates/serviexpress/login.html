@@ -6,11 +6,10 @@
     <title>Login</title>
 </head>
 <body>
-    <h2>Login</h2>
-    <form action="{% url 'logeo_cliente' %}" method="POST">
+    <form action="{% url 'login_cliente' %}" method="POST">
         {% csrf_token %}
         <div class="container">
-            <h1>Login de cliente</h1>
+            <h1>Login</h1>
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
@@ -19,7 +18,7 @@
                 </ul>
             {% endif %}
             <hr>
-            <p>Por favor rellene el formulario para poder acceder a la plataforma</p>
+            <p>Por favor ingrese su usuario para poder acceder a la plataforma</p>
             <hr>
 
             <label for="username"><b>Correo Electronico</b></label>
