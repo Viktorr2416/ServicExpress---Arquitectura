@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+</head>
+<body>
+
+    <h2>Registro</h2>
+    <form action="{% url 'proveedor' %}" method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <h1>Registro de Proveedores</h1>
+            <p>Por favor rellene el formulario para registrar al proveedor exitosamente</p>
+            <hr>
+
+            <label for="nom_empresa"><b>Nombre del Proveedor</b></label>
+            <input type="text" placeholder="Proveedor" name="nom_empresa" id="nom_empresa" required>
+
+            <label for="contacto"><b>Contacto</b></label>
+            <input type="text" placeholder="Contacto del Proveedor" name="contacto" id="contacto" required>
+
+            <label for="rubro"><b>Rubro</b></label>
+            <input type="text" placeholder="Rubro del Proveedor" name="rubro" id="rubro" required>
+
+            <button type="submit" class="registro" >Confirmar</button>
+        </div>
+    </form>
+
+</body>
+</html>

@@ -7,5 +7,84 @@
 </head>
 <body>
     <h1>Hola empleado. ¡Bienvenido!</h1>
+    <menu>
+        <li>
+            <a href="#">
+                Proveedores
+            </a>
+
+            <ol>
+                <li>
+                    <a href="{% url 'proveedor' %}">
+                        Registrar Proveedor
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Lista de Proveedores
+                    </a>
+                </li>
+            </ol>
+        </li>
+        <li>
+            <a href="#">
+                Servicios
+            </a>
+
+            <ol>
+                <li>
+                    <a href="{% url 'servicio' %}">
+                        Registrar Servicio
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Lista de Servicios
+                    </a>
+                </li>
+            </ol>
+        </li>
+        <li>
+            <a href="#">
+                Boleta/Factura
+            </a>
+
+            <ol>
+                <li>
+                    <a href="#">
+                        Registrar Boleta/Factura
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Lista de Boleta/Factura
+                    </a>
+                </li>
+            </ol>
+        </li>
+        <li>
+            <a href="#">
+                Pedidos
+            </a>
+
+            <ol>
+                <li>
+                    <a href="{% url 'pedido' %}">
+                        Registrar Pedido
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Lista de Pedidos
+                    </a>
+                </li>
+            </ol>
+        </li>
+        <li>
+            <a href="{% url 'logout' %}">
+                Cerrar Sesion
+            </a>
+        </li>
+    </menu>
 </body>
 </html>

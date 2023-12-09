@@ -3,37 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
+
+    <!--
+    <link rel="stylesheet" href="static/Css/Style_menu.css">
+    <link rel="stylesheet" href="static/Css/style.css">
+
+    -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Css/Style_menu.css' %}">
+    <link rel="stylesheet" href="{% static 'Css/style.css' %}">
+    
 </head>
 <body>
 
-    <h2>Registro</h2>
     <form action="{% url 'registrar' %}" method="POST">
         {% csrf_token %}
-        <div class="container">
+        <div class="center">
             <h1>Registro de Cliente</h1>
-            <p>Por favor rellene el formulario para poder crear su usuario exitosamente</p>
-            <hr>
 
-            <label for="username"><b>Correo Electronico</b></label>
-            <input type="text" placeholder="Ingrese su correo electronico" name="username" id="username" required>
-
-            <label for="password"><b>Contraseña</b></label>
-            <input type="password" placeholder="Ingrese su contraseña" name="password" id="password" required>
-
-            <label for="rut"><b>Rut</b></label>
-            <input type="text" placeholder="Ingrese su rut" name="rut" id="rut" required>
-
-            <label for="nombre"><b>Nombre</b></label>
-            <input type="text" placeholder="Ingrese su nombre" name="nombre" id="nombre" required>
-
-            <label for="apellido"><b>Apellido</b></label>
-            <input type="text" placeholder="Ingrese su apellido" name="apellido" id="apellido" required>
-
-            <label for="telefono"><b>Telefono</b></label>
-            <input type="text" placeholder="Ingrese su telefono" name="telefono" id="telefono" required>
+            <div class="txt_field">
+                <input type="text" placeholder="Ingrese su correo electronico" name="username" id="username" required>
+            </div>
             
-            <button type="submit" class="registro" >Registro</button>
+            <div class="txt_field">
+                <input type="password" placeholder="Ingrese su contraseña" name="password" id="password" required>
+            </div>
+
+            <div class="txt_field">
+                <input type="text" placeholder="Ingrese su rut" name="rut" id="rut" required>
+            </div>
+
+
+            <div class="txt_field">
+            <input type="text" placeholder="Ingrese su nombre" name="nombre" id="nombre" required>
+            </div>
+
+            <div class="txt_field">
+            <input type="text" placeholder="Ingrese su apellido" name="apellido" id="apellido" required>
+            </div>
+
+            <div class="txt_field">
+            <input type="text" placeholder="Ingrese su telefono" name="telefono" id="telefono" required>
+            </div>
+   
+            
+            <input type="submit" value="Registrarse">
+            <div class="signup_link">
+
+
         </div>
     </form>
     

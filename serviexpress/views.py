@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Cliente, Empleado, ReservaHora
-from .forms import clienteForm, loginForm, reservaHoraForm
+from .forms import clienteForm, loginForm, reservaHoraForm, servicioForm, proveedorForm, pedidosForm, modificarReservaForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 
 @login_required
 def homepage(request):
-    context={}
+    context = {}
     return render(request, 'serviexpress/home.html', context)
 
 def registroCliente(request):
@@ -32,6 +32,7 @@ def homeE(request):
     return render(request, 'serviexpress/homeE.html', context)
 
 # Fin de accesos 
+
 
 # Funciones 
 
@@ -56,7 +57,7 @@ def registrar_cliente(request):
         
     return render(request, 'serviexpress/registro.html',{'form':form})
     
-#Registro de cliente
+#Login de cliente/empleado
 def login_cliente(request):
     if request.method == 'POST':
         form = loginForm(request.POST)
@@ -72,6 +73,7 @@ def login_cliente(request):
                 try:
                     # Intentar buscar en Cliente
                     cliente = Cliente.objects.get(username=username)
+                    print(username)
                     # Redirigir a una página específica para clientes
                     return redirect('home')  # Cambia 'ruta_para_cliente' por la URL o nombre de ruta real
                 except Cliente.DoesNotExist:
@@ -95,6 +97,10 @@ def login_cliente(request):
 
     return render(request, 'serviexpress/login.html', {'form': form})
 
+#Cerrar sesion 
+def signout(request):
+    logout(request)
+    return redirect('menu')
 
 #Registro Reserva de hora
 @login_required
@@ -115,7 +121,84 @@ def reservaHora(request):
     return render(request, 'serviexpress/reservaHora.html', {'form':form})
 
 #Listar Reservas de hora
+@login_required
 def list_reservas(request):
     reservas = ReservaHora.objects.all()
     print(reservas)
     return render(request, 'serviexpress/listaReserva.html', {'reservas': reservas})
+
+#Modificar Reservas de hora
+@login_required
+def mod_reservas(request, id):
+    reservas = ReservaHora.objects.get(id=id)
+    print('ERROR 1')
+    if request.method == 'POST':
+        print('ERROR 4')
+        form = modificarReservaForm(request.POST, instance=reservas)
+        print('ERROR 2')
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            print('ERROR 4')
+
+    print('ERROR 3')
+    return render(request, 'serviexpress/listaReserva.html', {'form':form})
+
+
+#Registro de Servicios
+@login_required
+def registroServicio(request):
+    if request.method == "POST":
+        print(request.POST)
+        form = servicioForm(request.POST)
+        if form.is_valid():
+            print("Formulario válido")
+            form.save()
+            print("Registro guardado exitosamente")
+            return redirect('empleado')
+        else:
+            print("Formulario no válido. Errores:", form.errors)
+            return redirect('servicio')
+    else:
+        form = servicioForm
+        
+    return render(request, 'serviexpress/registroServicio.html', {'form':form})
+
+#Registro de proveedores
+@login_required
+def registroProveedores(request):
+    if request.method == "POST":
+        print(request.POST)
+        form = proveedorForm(request.POST)
+        if form.is_valid():
+            print("Formulario válido")
+            form.save()
+            print("Proveedor guardado exitosamente")
+            return redirect('empleado')
+        else:
+            print("Formulario no válido. Errores:", form.errors)
+            return redirect('proveedor')
+    else:
+        form = servicioForm
+        
+    return render(request, 'serviexpress/registroProveedor.html', {'form':form})
+
+#Registro de pedidos
+@login_required
+def registroPedido(request):
+    if request.method == "POST":
+        print(request.POST)
+        form = pedidosForm(request.POST)
+        if form.is_valid():
+            print("Formulario válido")
+            form.save()
+            print("Proveedor guardado exitosamente")
+            return redirect('empleado')
+        else:
+            print("Formulario no válido. Errores:", form.errors)
+            return redirect('pedido')
+    else:
+        form = servicioForm
+        
+    return render(request, 'serviexpress/registroPedido.html', {'form':form})

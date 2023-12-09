@@ -1,0 +1,45 @@
+/* reserve.css */
+
+.centro{
+  text-align: center;
+
+}
+
+.reservas-body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.reservas-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.reservas-table th, .reservas-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.reservas-table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Cambiar color de fondo y texto en las celdas de datos */
+.reservas-table td {
+  background-color: #eaf7ea; /* Cambia el color de fondo a tu preferencia */
+  color: #333; /* Cambia el color del texto a tu preferencia */
+}
+
+/* Cambiar color de fondo al pasar el ratón sobre la fila */
+.reservas-table tbody tr:hover {
+  background-color: #dff0d8; /* Cambia el color de fondo al pasar el ratón a tu preferencia */
+}
+
+.modificar-reserva-link {
+  color: #007BFF;
+  text-decoration: none;
+}

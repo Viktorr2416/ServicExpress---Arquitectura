@@ -4,17 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Reserva Hora</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Css/Style_menu.css' %}">
+    <link rel="stylesheet" href="{% static 'Css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'Css/reserva.css' %}">
 </head>
-<body>
+<body class="reservas-body">
     
+<div class="centro">
     <h1>Tus Reservas</h1>
+</div>
     {% if reservas %}
-        <table border="2">
+        <table class="reservas-table">
             <thead>
                 <tr>
                     <th>Hora de reserva</th>
                     <th>Fecha de reserva</th>
                     <th>Servicio registrado</th>
+                    <th>Modificar reserva</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +31,9 @@
                         <td>{{ reserva.hora }}</td>
                         <td>{{ reserva.fecha|date:"d/m/Y" }}</td>
                         <td>{{ reserva.servicio }}</td>
-                        <!-- Agrega más celdas según tus necesidades -->
+                        <td>
+                            <a href="{% url 'modificar_reserva' id=reserva.id %}" class="modificar-reserva-link">Modificar reserva</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -32,22 +42,5 @@
         <p>No hay reservas registradas.</p>
     {% endif %}
 
-    <table>
-        <tr>
-        <td>Curso</td>
-        <td>Nivel</td>
-        <td>Plataforma</td>
-        </tr>
-        <tr>
-        <td>HTML</td>
-        <td>Principiante</td>
-        <td>Aprender desde Cero</td>
-        </tr>
-        <tr>
-        <td>CSS</td>
-        <td>Avanzado</td>
-        <td>Aprender desde Cero</td>
-        </tr>
-        </table>
 </body>
 </html>

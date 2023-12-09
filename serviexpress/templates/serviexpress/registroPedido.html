@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+</head>
+<body>
+
+    <h2>Registro</h2>
+    <form action="{% url 'pedido' %}" method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <h1>Registro de Pedidos</h1>
+            <p>Por favor rellene el formulario para registrar pedidos exitosamente</p>
+            <hr>
+
+            <label for="fecha_solicitud"><b>Fecha de entrega</b></label>
+            <input type="date" placeholder="Fecha" name="fecha_solicitud" id="fecha_solicitud" required>
+
+            <label for="nom_producto"><b>Nombre del Producto</b></label>
+            <input type="text" placeholder="Nombre Producto" name="nom_producto" id="nom_producto" required>
+
+            <label for="descripcion"><b>Descripcion</b></label>
+            <input type="text" placeholder="Descripcion del Producto" name="descripcion" id="descripcion" required>
+
+            <label for="cant_produc"><b>Cantidad del Producto</b></label>
+            <input type="number" placeholder="Cantidad" name="cant_produc" id="cant_produc" required>
+
+            <button type="submit" class="registro" >Confirmar</button>
+        </div>
+    </form>
+
+</body>
+</html>

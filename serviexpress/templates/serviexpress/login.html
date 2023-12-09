@@ -4,30 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Css/Style_menu.css' %}">
+    <link rel="stylesheet" href="{% static 'Css/style.css' %}">
 </head>
 <body>
     <form action="{% url 'login_cliente' %}" method="POST">
         {% csrf_token %}
-        <div class="container">
+        <div class="center">
             <h1>Login</h1>
-            {% if messages %}
+           <!-- {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
                         <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
-            <hr>
-            <p>Por favor ingrese su usuario para poder acceder a la plataforma</p>
-            <hr>
-
-            <label for="username"><b>Correo Electronico</b></label>
-            <input type="text" placeholder="Ingrese su correo" name="username" id="username" required>
-
-            <label for="password"><b>Contraseña</b></label>
-            <input type="password" placeholder="Ingrese su contraseña" name="password" id="password" required>
+            -->
+            <h4> Por favor ingrese sus datos para acceder a la plataforma</h4>
             
-            <button type="submit" class="registro" >Iniciar sesión</button>
+
+            <div class="txt_field">
+            <input type="text" placeholder="Ingrese su correo" name="username" id="username" required>
+            </div>
+
+            <div class="txt_field">
+            <input type="password" placeholder="Ingrese su contraseña" name="password" id="password" required>
+            </div>
+            
+            <input type="submit" value="Iniciar sesion">
+            <div class="signup_link">
         </div>
     </form>
 </body>

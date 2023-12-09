@@ -1,0 +1,21 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <!-- Tu contenido actual -->
+
+    <!-- Dentro del formulario -->
+    <h1>Modificar Reserva</h1>
+    <form method="POST" action="{% url 'modificar_reserva' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar cambios</button>
+    </form>
+    
+    <!-- Muestra el mensaje de éxito o error -->
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+    {% if form.errors %}
+        <p>Hubo errores en el formulario. Revíselo.</p>
+    {% endif %}
+{% endblock %}

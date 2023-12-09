@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="Css/Style_menu.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Css/Style_menu.css' %}">
+    <link rel="stylesheet" href="{% static 'Css/style.css' %}">
 </head>
 <body>
+<div class="center">
     <h1>Bienvenido a ServiExpress!!</h1>
-
-    <h2>Ingresa sesion para poder acceder:</h2>
-    <div>
+        <div class="signup_link">
         <a href="{% url 'login_cliente' %}">Iniciar Sesion</a>
-        <br>
-        <a href="{% url 'registrar' %}">Registro Sesion</a>
-    </div>
+        </div>
+        <div class="signup_link">
+        <a href="{% url 'registrar' %}">Registrarse</a>
+        </div>
+        
+</div>
+
+
 </body>
 </html>
